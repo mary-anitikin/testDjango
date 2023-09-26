@@ -7,6 +7,7 @@ def index(request):
     return HttpResponse("Страница приложения women.")
 
 def categories(request, cat):
+    print(request.GET)
     return HttpResponse(f"<h1>Статьи по категориям</h1>{cat}</p>")
 
 def categoriesone(request):
