@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.shortcuts import redirect, render
 
 # Create your views here.
 
@@ -14,4 +14,9 @@ def categoriesone(request):
     return HttpResponse("<h1>Статьи по категориям</h1>")
 
 def archive(request, year):
-    return HttpResponse(f"<h1>Архив по годам</h1>{year}</p>")
+    # if(int(year) > 2020):
+    raise Http404()    
+    # return HttpResponse(f"<h1>Архив по годам</h1>{year}</p>")
+
+def pageNotFound(request, exception):
+    return HttpResponseNotFound('<h1>Страница, к сожалению, не найдена</h1>')
