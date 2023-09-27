@@ -16,7 +16,6 @@ Including another URLconf
 import statistics
 from django.contrib import admin
 from django.urls import path, include
-from coolsite.coolsite import settings
 
 from coolsite import settings
 from women.views import *
