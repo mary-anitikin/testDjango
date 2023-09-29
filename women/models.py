@@ -4,13 +4,18 @@ from django.urls import reverse
 # Create your models here.
 
 class Women(models.Model):
-    title = models.CharField(max_length=255)
-    content = models.TextField(blank=True)
-    photo = models.ImageField(upload_to="photos/%Y/%m/%d/")
-    time_create = models.DateTimeField(auto_now_add=True)
-    time_update = models.DateTimeField(auto_now=True)
-    id_published = models.BooleanField(default=True)
-    cat = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)
+    title = models.CharField(max_length=255, verbose_name="Заголовок")
+    content = models.TextField(blank=True, verbose_name = "Текст статьи")
+    photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="Фото")
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
+    time_update = models.DateTimeField(auto_now=True, verbose_name="Время изменения")
+    id_published = models.BooleanField(default=True, verbose_name="Публикация")
+    cat = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name="Категории")
+
+    class Meta:
+        verbose_name = 'Известные женщины'
+        verbose_name_plural = 'Известные женщины'
+        ordering = ['-time_create', 'title']
 
     def __str__(self):
         return self.title
@@ -19,7 +24,12 @@ class Women(models.Model):
         return reverse('post', kwargs={'post_id': self.pk})
     
 class Category(models.Model):
-    name = models.CharField(max_length=100, db_index=True)
+    name = models.CharField(max_length=100, db_index=True, verbose_name="Категория")
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+        ordering = ['id']
  
     def __str__(self):
         return self.name
